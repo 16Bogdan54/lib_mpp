@@ -12,43 +12,41 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_04_08_182751) do
   create_table "authors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "fullname"
-    t.integer "age"
-    t.string "place_of_birth"
-    t.string "favorite_genre"
+    t.string "name"
+    t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
-    t.string "genre"
-    t.integer "year"
-    t.string "city"
-    t.float "price"
+    t.text "description"
+    t.bigint "library_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["library_id"], name: "index_books_on_library_id"
   end
 
   create_table "genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "genre_type"
-    t.integer "recommended_age"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "libraries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "user_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "subscription_type"
-    t.float "payment"
-    t.date "exp_date"
+    t.bigint "library_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["library_id"], name: "index_user_records_on_library_id"
+    t.index ["user_id"], name: "index_user_records_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -60,4 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_182751) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "books", "libraries"
+  add_foreign_key "user_records", "libraries"
+  add_foreign_key "user_records", "users"
 end
