@@ -22,8 +22,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_182751) do
     t.string "title"
     t.text "description"
     t.bigint "library_id"
+    t.bigint "author_id"
+    t.bigint "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_books_on_author_id"
+    t.index ["genre_id"], name: "index_books_on_genre_id"
     t.index ["library_id"], name: "index_books_on_library_id"
   end
 
@@ -58,6 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_182751) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "books", "authors"
+  add_foreign_key "books", "genres"
   add_foreign_key "books", "libraries"
   add_foreign_key "user_records", "libraries"
   add_foreign_key "user_records", "users"
