@@ -14,7 +14,29 @@ class Book < ApplicationRecord
                        updated_at: Time.now)
       input.save
     }
+  end
 
+  def self.updateAll
+    (1..100).each { |i|
+      book = Book.find_by(id: i)
+      book.update(
+        title: "upd title #{i}",
+        description: "upd desc #{i}",
+        updated_at: Time.now
+      )
+      book.save
+    }
+  end
+
+  def self.UpdateById(id)
+    book = Book.find_by(id)
+
+    book.update(
+      title: "upd by id(#{id}) title",
+      description: "upd by id(#{id}) desc",
+      updated_at: Time.now
+    )
+    book.save
   end
 
 end

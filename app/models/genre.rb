@@ -12,5 +12,24 @@ class Genre < ApplicationRecord
     }
   end
 
+  def self.updateAll
+    (1..100).each { |i|
+        genre = Genre.find_by(id: i)
+        genre.update(
+          name: "updated name #{i}",
+          updated_at: Time.now
+        )
+        genre.save
+    }
+  end
+
+  def self.UpdateById(id)
+    genre = Genre.find_by(id)
+
+    genre.update(
+      name: "updated by id(#{id}) name"
+    )
+    genre.save
+  end
 
 end

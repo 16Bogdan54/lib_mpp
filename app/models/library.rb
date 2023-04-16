@@ -10,4 +10,17 @@ class Library < ApplicationRecord
     }
   end
 
+  def self.update
+    (1..100).each do |i|
+      q = "UPDATE libraries SET name = 'updated name #{i.to_s}', location = 'updated location #{i.to_s}', updated_at = NOW() WHERE id = #{i}"
+      ActiveRecord::Base.connection.execute(q)
+    end
+  end
+
+  def self.updateById(id)
+    q = "UPDATE libraries SET name = 'updated name by id(#{id})', location = 'updated location by id(#{id})', updated_at = NOW() WHERE id = #{id}"
+    ActiveRecord::Base.connection.execute(q)
+  end
+
+
 end

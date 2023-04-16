@@ -8,4 +8,17 @@ class User < ApplicationRecord
     }
   end
 
+  def self.update
+    (1..100).each do |i|
+      q = "UPDATE users SET name = 'updated name #{i.to_s}', surname = 'surname location #{i.to_s}', email = 'email location #{i.to_s}', updated_at = NOW() WHERE id = #{i}"
+      ActiveRecord::Base.connection.execute(q)
+    end
+  end
+
+  def self.updateById(id)
+    q = "UPDATE users SET name = 'updated name by id(#{id})', surname = 'updated surname by id(#{id})', email = 'updated email by id(#{id})', updated_at = NOW() WHERE id = #{id}"
+    ActiveRecord::Base.connection.execute(q)
+  end
+
+
 end

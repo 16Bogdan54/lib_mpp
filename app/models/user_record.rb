@@ -14,4 +14,23 @@ class UserRecord < ApplicationRecord
     }
   end
 
+  def self.updateAll
+    (1..100).each { |i|
+      record = UserRecord.find_by(id: i)
+      record.update(
+        updated_at: Time.now
+      )
+      record.save
+    }
+  end
+
+  def self.UpdateById(id)
+    record = UserRecord.find_by(id)
+
+    record.update(
+      updated_at: Time.now
+    )
+    record.save
+  end
+
 end
